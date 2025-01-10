@@ -27,8 +27,11 @@ const Edit = () => {
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     axios
-      .put(`http://localhost:8081/api/v1/update/${id}`, { name, email })
-      .then((response: any) => {
+      .put<Student>(`http://localhost:8081/api/v1/update/${id}`, {
+        name,
+        email,
+      })
+      .then((response) => {
         console.log(response);
         navigate("/");
       })

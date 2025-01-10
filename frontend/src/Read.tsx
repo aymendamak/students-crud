@@ -27,11 +27,11 @@ const Read = () => {
         <h1 className="text-2xl font-bold mb-5 text-center">Student's Data</h1>
         <h2 className="text-2xl text-black">{name}</h2>
         <h2 className="text-2xl text-black">{email}</h2>
-        <Link to="/" className="btn btn-primary">
-          Back
-        </Link>
-        <Link to={`/edit/${id}`} className="btn btn-secondary">
+        <Link to={`/edit/${id}`} className="btn btn-warning ">
           Edit
+        </Link>
+        <Link to="/" className="btn btn-link">
+          Back
         </Link>
       </div>
     </div>

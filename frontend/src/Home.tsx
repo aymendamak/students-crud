@@ -36,7 +36,7 @@ const Home = () => {
       <div className="flex flex-row items-center justify-between">
         <h2 className="text-black text-lg ">Student List</h2>
         <div className="">
-          <Link to="/create" className="btn btn-success">
+          <Link to="/create" className="btn btn-success btn-outline">
             {" "}
             New Student
           </Link>
@@ -62,17 +62,17 @@ const Home = () => {
                 <td className="py-3 px-6">{student.name}</td>
                 <td className="py-3 px-6">{student.email}</td>
                 <td className="py-3 px-6 flex gap-3">
-                  <Link to={`/read/${student.id}`} className="btn btn-primary">
+                  <Link to={`/read/${student.id}`} className="btn btn-info">
                     Read
                   </Link>
                   <Link
                     to={`/edit/${student.id}`}
-                    className="btn btn-secondary"
+                    className="btn text-black btn-warning "
                   >
                     Edit
                   </Link>
                   <button
-                    className="btn btn-accent"
+                    className="btn btn-error text-black"
                     onClick={() => deleteStudent(student.id)}
                   >
                     Delete
