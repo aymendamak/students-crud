@@ -1,12 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-
-interface getStudent {
-  id: number;
-  name: string;
-  email: string;
-}
+import { Student } from "./models/student.model";
 
 const Read = () => {
   const { id } = useParams();
@@ -17,7 +12,7 @@ const Read = () => {
     console.log("id", id);
     // Fetch data from the API
     axios
-      .get<getStudent>(`http://localhost:8081/api/v1/read/${id}`)
+      .get<Student>(`http://localhost:8081/api/v1/read/${id}`)
       .then((response) => {
         setName(response.data.name);
         setEmail(response.data.email);

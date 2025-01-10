@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState, FormEvent } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { Student } from "./models/student.model";
 
 const Edit = () => {
   const navigate = useNavigate();
@@ -12,11 +13,11 @@ const Edit = () => {
   useEffect(() => {
     // Fetch data from the API
     axios
-      .get(`http://localhost:8081/api/v1/read/${id}`)
+      .get<Student>(`http://localhost:8081/api/v1/read/${id}`)
       .then((response) => {
         console.log("resonse", response);
-        setName(response.data[0].name);
-        setEmail(response.data[0].email);
+        setName(response.data.name);
+        setEmail(response.data.email);
       })
       .catch((error) => {
         console.error(error);

@@ -29,30 +29,20 @@ export const createStudent = async (
   req: express.Request,
   res: express.Response
 ) => {
-  console.log("req.body", req.body);
   const { name, email } = req.body;
-  const db = mysql.createConnection({
-    host: "localhost",
-    port: "8889",
-    user: "root",
-    password: "root",
-    database: "crud",
-  });
-  db.connect((err) => {
-    if (err) {
-      console.error(err);
-    } else {
-      console.log("Connected to database");
-    }
-  });
-  const query = `INSERT INTO student (name, mail) VALUES ('${name}', '${email}')`;
-  db.query(query, (err, result) => {
-    if (err) {
-      console.error(err);
-    } else {
-      res.send("Student created successfully");
-    }
-  });
+  const newStudent = await prisma.student
+    .create({
+      data: {
+        name: name,
+        email: email,
+      },
+    })
+    .then((student) => {
+      res.status(201).send(student);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
 };
 
 export const updateStudent = async (
@@ -61,30 +51,21 @@ export const updateStudent = async (
 ) => {
   const { name, email } = req.body;
   const { id } = req.params;
-  const db = mysql.createConnection({
-    host: "localhost",
-    port: "8889",
-    user: "root",
-    password: "root",
-    database: "crud",
-  });
-  db.connect((err) => {
-    if (err) {
-      console.error(err);
-    } else {
-      console.log("Connected to database");
-    }
-  });
 
-  const query = `UPDATE student SET name = '${name}', mail = '${email}' WHERE id = ${id}`;
-
-  db.query(query, (err, result) => {
-    if (err) {
-      console.error(err);
-    } else {
-      res.send("Student updated successfully");
-    }
-  });
+  const updatedStudent = await prisma.student
+    .update({
+      where: { id: Number(id) },
+      data: {
+        name: name,
+        email: email,
+      },
+    })
+    .then((student) => {
+      res.status(200).send(student);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
 };
 
 export const deleteStudent = async (
@@ -92,27 +73,15 @@ export const deleteStudent = async (
   res: express.Response
 ) => {
   const { id } = req.params;
-  const db = mysql.createConnection({
-    host: "localhost",
-    port: "8889",
-    user: "root",
-    password: "root",
-    database: "crud",
-  });
-  db.connect((err) => {
-    if (err) {
-      console.error(err);
-    } else {
-      console.log("Connected to database");
-    }
-  });
 
-  const query = `DELETE FROM student WHERE id = ${id}`;
-  db.query(query, (err, result) => {
-    if (err) {
-      console.error(err);
-    } else {
-      res.send("Student deleted successfully");
-    }
-  });
+  const deletedStudent = await prisma.student
+    .delete({
+      where: { id: Number(id) },
+    })
+    .then((student) => {
+      res.status(200).send(student);
+    })
+    .catch((error) => {
+      res.status(500).send(error);
+    });
 };
