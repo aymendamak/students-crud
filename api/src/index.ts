@@ -13,22 +13,6 @@ app.get("/", (req, res) => {
   console.log("pong");
 });
 
-const db = mysql.createConnection({
-  host: "localhost",
-  port: "8889",
-  user: "root",
-  password: "root",
-  database: "crud",
-});
-
-db.connect((err) => {
-  if (err) {
-    console.error(err);
-  } else {
-    console.log("Connected to database");
-  }
-});
-
 app.use("/api/v1/", studentRouter);
 
 app.listen(8081, () => {

@@ -1,32 +1,16 @@
 import express from "express";
 import mysql from "mysql";
 
+import { PrismaClient } from "@prisma/client";
+
+const prisma = new PrismaClient();
+
 export const getStudents = async (
   req: express.Request,
   res: express.Response
 ) => {
-  const db = mysql.createConnection({
-    host: "localhost",
-    port: "8889",
-    user: "root",
-    password: "root",
-    database: "crud",
-  });
-  db.connect((err) => {
-    if (err) {
-      console.error(err);
-    } else {
-      console.log("Connected to database");
-    }
-  });
-  const students = db.query("SELECT * FROM student", (err, result) => {
-    if (err) {
-      console.error(err);
-      return res.json({ error: "An error occurred" });
-    } else {
-      res.send(result);
-    }
-  });
+  const students = await prisma.student.findMany();
+  res.send(students);
 };
 
 export const getStudentById = async (
@@ -35,32 +19,10 @@ export const getStudentById = async (
 ) => {
   const { id } = req.params;
 
-  const db = mysql.createConnection({
-    host: "localhost",
-    port: "8889",
-    user: "root",
-    password: "root",
-    database: "crud",
+  const student = await prisma.student.findUnique({
+    where: { id: Number(id) },
   });
-  db.connect((err) => {
-    if (err) {
-      console.error(err);
-    } else {
-      console.log("Connected to database");
-    }
-  });
-  const student = db.query(
-    "SELECT * FROM student WHERE id = ?",
-    [id],
-    (err, result) => {
-      if (err) {
-        console.error(err);
-        return res.json({ error: "An error occurred" });
-      } else {
-        res.send(result);
-      }
-    }
-  );
+  res.send(student);
 };
 
 export const createStudent = async (

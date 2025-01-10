@@ -60,7 +60,7 @@ const Home = () => {
               >
                 <td className="py-3 px-6">{student.id}</td>
                 <td className="py-3 px-6">{student.name}</td>
-                <td className="py-3 px-6">{student.mail}</td>
+                <td className="py-3 px-6">{student.email}</td>
                 <td className="py-3 px-6 flex gap-3">
                   <Link to={`/read/${student.id}`} className="btn btn-primary">
                     Read

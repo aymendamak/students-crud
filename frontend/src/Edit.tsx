@@ -16,7 +16,7 @@ const Edit = () => {
       .then((response) => {
         console.log("resonse", response);
         setName(response.data[0].name);
-        setEmail(response.data[0].mail);
+        setEmail(response.data[0].email);
       })
       .catch((error) => {
         console.error(error);
