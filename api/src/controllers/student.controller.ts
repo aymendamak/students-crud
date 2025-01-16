@@ -9,8 +9,12 @@ export const getStudents = async (
   req: express.Request,
   res: express.Response
 ) => {
-  const students = await prisma.student.findMany();
-  res.send(students);
+  try {
+    const students = await prisma.student.findMany();
+    res.json(students);
+  } catch (error) {
+    res.status(500).json({ error: "Failed to fetch students" });
+  }
 };
 
 export const getStudentById = async (
@@ -22,7 +26,7 @@ export const getStudentById = async (
   const student = await prisma.student.findUnique({
     where: { id: Number(id) },
   });
-  res.send(student);
+  res.json(student);
 };
 
 export const createStudent = async (
@@ -38,10 +42,10 @@ export const createStudent = async (
       },
     })
     .then((student) => {
-      res.status(201).send(student);
+      res.status(201).json(student);
     })
     .catch((error) => {
-      res.status(500).send(error);
+      res.status(500).json(error);
     });
 };
 
@@ -61,10 +65,10 @@ export const updateStudent = async (
       },
     })
     .then((student) => {
-      res.status(200).send(student);
+      res.status(200).json(student);
     })
     .catch((error) => {
-      res.status(500).send(error);
+      res.status(500).json(error);
     });
 };
 
@@ -79,9 +83,9 @@ export const deleteStudent = async (
       where: { id: Number(id) },
     })
     .then((student) => {
-      res.status(200).send(student);
+      res.status(200).json(student);
     })
     .catch((error) => {
-      res.status(500).send(error);
+      res.status(500).json(error);
     });
 };

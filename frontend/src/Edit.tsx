@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useEffect, useState, FormEvent } from "react";
+import { useEffect, useState, FormEvent } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { Student } from "./models/student.model";
 
