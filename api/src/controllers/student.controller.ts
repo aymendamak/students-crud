@@ -1,5 +1,4 @@
 import express from "express";
-import mysql from "mysql";
 
 import { PrismaClient } from "@prisma/client";
 

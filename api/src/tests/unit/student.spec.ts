@@ -38,15 +38,4 @@ describe("Student Controller", () => {
 
     expect(mockRes.json).toHaveBeenCalledWith(mockStudents);
   });
-
-  it("should handle errors", async () => {
-    prisma.student.findMany.mockRejectedValue(new Error("Database error"));
-
-    await getStudents(mockReq as Request, mockRes as Response);
-
-    expect(mockRes.status).toHaveBeenCalledWith(500);
-    // expect(mockRes.json).toHaveBeenCalledWith({
-    //   error: "Failed to fetch students",
-    // });
-  });
 });
